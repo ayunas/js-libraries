@@ -26,9 +26,22 @@ const createStudent = () => (
         dob : faker.date.between("01/01/1928","12/12/2000"), 
         gender : getRandomGender(),
         city : faker.address.city(),
-        state : faker.address.stateAbbr()
+        state : faker.address.stateAbbr(),
+        education : educate(),
+        gpa : gpa(),
     }
 );
+
+const gpa = () => (.5 + Math.random()*4).toFixed(2);
+
+
+const educate = () => {
+    const education = ['high school','college','masters','PHD','N/A'];
+    const e = Math.floor(Math.random()*education.length);
+    console.log(education[e]);
+    return education[e];
+}
+
 
 function jsonOutput(arr, fileName) {
     fs.writeFile(fileName,JSON.stringify(arr,null,"\t"), e => e ? console.log(`error writing to file ${fileName}`) : console.log(`successfully wrote to file ${fileName}`));
@@ -50,21 +63,22 @@ const createCSVWriter = (fileName, fields) => csv({
                 {id : 'first', title : 'first_name'},
                 {id : 'last', title : 'last_name'},
                 {id : 'dob', title : 'date_of_birth'},
-                {id : 'age', title : 'age'},
                 {id : 'gender', title : 'gender'},
                 {id : 'city', title : 'city'},
-                {id : 'state', title : 'state'}
+                {id : 'state', title : 'state'},
+                {id : 'education', title : 'education'},
+                {id : 'gpa', title : 'gpa'}
         ]
     }); 
 
 
 
-const studentData = genStudentData(1000);
+const students = genStudentData(1000);
 
 // jsonOutput(studentData,"student_data.json");
-csvOutput(studentData,"students.csv");
+csvOutput(students,"../student.csv");
 
 // console.log(studentData);
 
 
-module.exports = {genStudentData};
+module.exports = {students , fileName : "students.json", genStudentData};

@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "csv-writer": "^1.6.0",
-    "faker": "^5.4.0"
+    "faker": "^5.4.0",
+    "utf8": "^3.0.0"
   },
   "scripts": {
     "test": "jest --watchAll"
